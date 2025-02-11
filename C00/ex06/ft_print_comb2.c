@@ -22,7 +22,7 @@ void	ft_print_comb2(void)
 			write(1, &p[2], 1);
 			write(1, &p[3], 1);
 			if (! (x == 98 && y == 99))
-				write (1, ", ", 1);
+				write (1, ", ", 2);
 			y++;
 		}
 		x++;
