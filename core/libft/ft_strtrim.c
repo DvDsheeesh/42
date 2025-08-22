@@ -1,35 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 12:33:07 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/22 10:46:45 by mohammad         ###   ########.fr       */
+/*   Created: 2025/08/21 14:01:51 by mohammad          #+#    #+#             */
+/*   Updated: 2025/08/22 14:43:53 by mohammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int	my_chrfnd(char const *set, char c)
 {
-	char	*sus;
-	size_t	i;
+	int	i;
 
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	sus = (char *)malloc (len + 1);
-	if (!sus)
-		return (NULL);
 	i = 0;
-	while (i < len)
+	while(set[i] && set[i] != c)
+		i++;
+	if (set[i])
+		return (1);
+	else
+		return (0);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	i;
+	size_t	f;
+	size_t	e;
+
+	i = 0;
+	while (s1[i] && my_chrfnd(set, s1[i]))
+		i++;
+	f = i;
+	while (s1[i])
 	{
-		sus[i] = s[start + i];
+		if (!my_chrfnd(set, s1[i]))
+			e = i;
 		i++;
 	}
-	sus[i] = '\0';
-	return (sus);
+	return (ft_substr(s1, f, e - f + 1));
 }
+//printf("%d %d %d\n", (int)i, (int)e, (int)f);

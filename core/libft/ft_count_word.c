@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_count_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 12:33:07 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/22 10:46:45 by mohammad         ###   ########.fr       */
+/*   Created: 2025/08/22 09:20:38 by mohammad          #+#    #+#             */
+/*   Updated: 2025/08/22 11:32:38 by mohammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+size_t	ft_count_word(char const *s, char c)
 {
-	char	*sus;
+	size_t	cc;
 	size_t	i;
 
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	sus = (char *)malloc (len + 1);
-	if (!sus)
-		return (NULL);
+	cc = 0;
 	i = 0;
-	while (i < len)
+	while (s[i])
 	{
-		sus[i] = s[start + i];
-		i++;
+		while (s[i] == c && s[i])
+			i++;
+		if (s[i])
+			cc++;
+		while (s[i] != c && s[i])
+			i++;
 	}
-	sus[i] = '\0';
-	return (sus);
+	return (cc);
 }

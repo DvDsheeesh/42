@@ -1,35 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 12:33:07 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/22 10:46:45 by mohammad         ###   ########.fr       */
+/*   Created: 2025/08/22 14:40:34 by mohammad          #+#    #+#             */
+/*   Updated: 2025/08/22 16:13:47 by mohammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int	my_int_length(int n)
 {
-	char	*sus;
-	size_t	i;
+	int	i;
 
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	sus = (char *)malloc (len + 1);
-	if (!sus)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	if (n == 0)
+		return (1);
+	if (n < 0)
 	{
-		sus[i] = s[start + i];
+		n = -n;
 		i++;
 	}
-	sus[i] = '\0';
-	return (sus);
+	i = 0;
+	while (n)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*s;
+
+	s = (char *)malloc (my_int_length(n) + 1);
+	if (!s)
+		return (NULL);
+	s[my_int_length(n) + 1] = '\0';
+	if (n < 0)
+	{
+		s[0] = '-';
+		n = -n;
+	}
+	while (n)
+	{
+		s[my_int_length(n) - 1] = (char)((n % 10) + 48);
+		n /= 10;
+	}
+	return (s);
 }
