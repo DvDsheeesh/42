@@ -1,46 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 14:01:51 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:21:52 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/14 20:06:38 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/16 11:55:13 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_chrfnd(char const *set, char c)
-{
-	int	i;
-
-	i = 0;
-	while (set[i] && set[i] != c)
-		i++;
-	if (set[i])
-		return (1);
-	else
-		return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
+void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t	i;
-	size_t	f;
-	size_t	e;
+	char	*ss;
 
 	i = 0;
-	while (s1[i] && my_chrfnd(set, s1[i]))
-		i++;
-	f = i;
-	while (s1[i])
+	ss = (char *)s;
+	while (i < n)
 	{
-		if (!my_chrfnd(set, s1[i]))
-			e = i;
+		*ss = c;
+		ss++;
 		i++;
 	}
-	return (ft_substr(s1, f, e - f + 1));
+	return (s);
 }
-//printf("%d %d %d\n", (int)i, (int)e, (int)f);
+/*
+#include <string.h>
+#include <stdio.h>
+int main()
+{
+    char pp[] = "cyka blyat!"; 
+    void *p2 = (void *)pp;
+    // memset(p2, 75, 3);
+    // printf("%s\n", (char *)p2);
+	ft_memset(p2, 72, 3);
+    printf("%s\n", (char *)p2); 
+    return (0);
+}
+*/

@@ -3,49 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:26:57 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/22 14:43:10 by mohammad         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:19:28 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	my_spfree(char **nn, int i)
+static void	spfree(char **nn, int i)
 {
 	while (i >= 0)
-	{
 		if (nn[i])
-			free (nn[i]);
-		i--;
-	}
+			free (nn[i--]);
 	free (nn);
+}
+
+static size_t	wordlen(const char *s, char c)
+{
+	size_t		i;
+
+	i = 0;
+	while (s[i] != c && s[i])
+		i++;
+	return (i);
+}
+
+static void	split_iter(char const *s, char c, char **nn)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			nn[j] = ft_substr (s, (unsigned int)i, wordlen(&s[i], c));
+			if (!nn[j])
+				spfree (nn, (int)(j));
+			j++;
+			i += wordlen(&s[i], c);
+		}
+	}
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
 	char	**nn;
 
-	nn = (char **)malloc (sizeof(char *) * ft_count_word (s, c) + 1);
+	if (!s)
+		return (NULL);
+	nn = malloc (sizeof(char *) * (ft_count_word(s, c) + 1));
 	if (!nn)
 		return (NULL);
-	j = 0;
-	i = 0;
-	while (i < ft_strlen(s))
-	{
-		while (s[i] == c)
-			i++;
-		if (s[i])
-		{
-			nn[j] = ft_substr (s, (unsigned int)i, (size_t)strchr(&s[i], c) - (size_t)(&s[i]));
-			if (!nn[j])
-				my_spfree (nn, (int)j);
-			j++;
-		}
-		i = (size_t)strchr(&s[i], c) - (size_t)s;
-	}
+	nn[ft_count_word (s, c)] = NULL;
+	split_iter(s, c, nn);
 	return (nn);
 }

@@ -1,46 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 14:01:51 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:21:52 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/16 16:20:00 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/17 22:40:14 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_chrfnd(char const *set, char c)
+char	*ft_strrchr(const char *s, int c)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (set[i] && set[i] != c)
-		i++;
-	if (set[i])
-		return (1);
-	else
-		return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	size_t	i;
-	size_t	f;
-	size_t	e;
-
-	i = 0;
-	while (s1[i] && my_chrfnd(set, s1[i]))
-		i++;
-	f = i;
-	while (s1[i])
+	j = ft_strlen((char *)s);
+	while (s[i])
 	{
-		if (!my_chrfnd(set, s1[i]))
-			e = i;
+		if (s[i] == (char)c)
+			j = i;
 		i++;
 	}
-	return (ft_substr(s1, f, e - f + 1));
+	if (s[j] == (char)c)
+		return ((char *)s + j);
+	else
+		return (NULL);
 }
-//printf("%d %d %d\n", (int)i, (int)e, (int)f);

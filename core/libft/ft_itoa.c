@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:40:34 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/22 16:13:47 by mohammad         ###   ########.fr       */
+/*   Updated: 2025/08/23 16:06:13 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_int_length(int n)
+int	my_int_length(long n)
 {
 	int	i;
 
 	if (n == 0)
 		return (1);
+	i = 0;
 	if (n < 0)
 	{
 		n = -n;
 		i++;
 	}
-	i = 0;
 	while (n)
 	{
 		n /= 10;
@@ -35,20 +35,27 @@ int	my_int_length(int n)
 char	*ft_itoa(int n)
 {
 	char	*s;
+	int		i;
+	long	num;
 
-	s = (char *)malloc (my_int_length(n) + 1);
+	num = n;
+	s = (char *)malloc (my_int_length(num) + 1);
 	if (!s)
 		return (NULL);
-	s[my_int_length(n) + 1] = '\0';
-	if (n < 0)
+	s[my_int_length(num)] = '\0';
+	i = 0;
+	if (num < 0)
 	{
 		s[0] = '-';
-		n = -n;
+		num = -num;
+		i = 1;
 	}
-	while (n)
+	if (num == 0)
+		s[0] = '0';
+	while (num)
 	{
-		s[my_int_length(n) - 1] = (char)((n % 10) + 48);
-		n /= 10;
+		s[my_int_length(num) - 1 + i] = (char)((num % 10) + 48);
+		num /= 10;
 	}
 	return (s);
 }

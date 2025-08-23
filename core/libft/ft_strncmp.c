@@ -1,46 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 14:01:51 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:21:52 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/16 17:04:53 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/16 18:32:05 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_chrfnd(char const *set, char c)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	size_t			i;
 
-	i = 0;
-	while (set[i] && set[i] != c)
-		i++;
-	if (set[i])
-		return (1);
-	else
+	if (n == 0)
 		return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	size_t	i;
-	size_t	f;
-	size_t	e;
-
 	i = 0;
-	while (s1[i] && my_chrfnd(set, s1[i]))
+	while (s1[i] == s2[i] && i < n - 1 && s1[i])
 		i++;
-	f = i;
-	while (s1[i])
-	{
-		if (!my_chrfnd(set, s1[i]))
-			e = i;
-		i++;
-	}
-	return (ft_substr(s1, f, e - f + 1));
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-//printf("%d %d %d\n", (int)i, (int)e, (int)f);
+/*
+#include <stdio.h>
+int     main(void)
+{
+        char    *s1 = "hi bro1\200";
+        char    *s2 = "hi bro1\0";
+        printf("%u", (unsigned)ft_strncmp(s1, s2, 0));
+        return (0);
+}
+*/

@@ -1,46 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 14:01:51 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:21:52 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/19 17:19:55 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/23 20:08:59 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_chrfnd(char const *set, char c)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int	i;
+	void	*p;
 
-	i = 0;
-	while (set[i] && set[i] != c)
-		i++;
-	if (set[i])
-		return (1);
-	else
-		return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	size_t	i;
-	size_t	f;
-	size_t	e;
-
-	i = 0;
-	while (s1[i] && my_chrfnd(set, s1[i]))
-		i++;
-	f = i;
-	while (s1[i])
+	if (!nmemb || !size)
 	{
-		if (!my_chrfnd(set, s1[i]))
-			e = i;
-		i++;
+		p = malloc(0);
+		if (!p)
+			return (NULL);
 	}
-	return (ft_substr(s1, f, e - f + 1));
+	else
+	{
+		p = malloc(nmemb * size);
+		if (!p)
+			return (NULL);
+		ft_bzero(p, nmemb * size);
+	}
+	return (p);
 }
-//printf("%d %d %d\n", (int)i, (int)e, (int)f);

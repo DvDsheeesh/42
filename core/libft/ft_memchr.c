@@ -1,46 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 14:01:51 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:21:52 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/16 18:34:11 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/19 16:59:01 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_chrfnd(char const *set, char c)
-{
-	int	i;
-
-	i = 0;
-	while (set[i] && set[i] != c)
-		i++;
-	if (set[i])
-		return (1);
-	else
-		return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
 	size_t	i;
-	size_t	f;
-	size_t	e;
+	char	*ss;
 
+	ss = (char *)s;
+	if (n == 0)
+		return (NULL);
 	i = 0;
-	while (s1[i] && my_chrfnd(set, s1[i]))
+	while (ss[i] != (char)c && i < n - 1)
 		i++;
-	f = i;
-	while (s1[i])
-	{
-		if (!my_chrfnd(set, s1[i]))
-			e = i;
-		i++;
-	}
-	return (ft_substr(s1, f, e - f + 1));
+	if (ss[i] == (char)c)
+		return ((void *)(ss + i));
+	else
+		return (NULL);
 }
-//printf("%d %d %d\n", (int)i, (int)e, (int)f);
