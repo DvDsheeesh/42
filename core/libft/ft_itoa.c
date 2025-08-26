@@ -6,13 +6,13 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:40:34 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 16:06:13 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:52:39 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_int_length(long n)
+static int	my_int_length(long n)
 {
 	int	i;
 

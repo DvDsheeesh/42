@@ -6,13 +6,13 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:01:51 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:21:52 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:59:43 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	my_chrfnd(char const *set, char c)
+static int	my_chrfnd(char const *set, char c)
 {
 	int	i;
 
@@ -31,6 +31,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	f;
 	size_t	e;
 
+	if (!s1 || !set)
+		return (NULL);
 	i = 0;
 	while (s1[i] && my_chrfnd(set, s1[i]))
 		i++;
@@ -43,4 +45,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	}
 	return (ft_substr(s1, f, e - f + 1));
 }
-//printf("%d %d %d\n", (int)i, (int)e, (int)f);

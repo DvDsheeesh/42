@@ -6,7 +6,7 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 19:58:48 by melshata          #+#    #+#             */
-/*   Updated: 2025/08/17 17:12:34 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:38:33 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		i++;
 	return ((unsigned char)ss1[i] - (unsigned char)ss2[i]);
 }
-// if (!s1 && !s2)
-// 	return (0);

@@ -6,7 +6,7 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:04:16 by melshata          #+#    #+#             */
-/*   Updated: 2025/08/16 15:42:53 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:38:47 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,3 @@ int	ft_isprint(int c)
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-int main(int ac, char** av)
-{
-	printf("%d",ft_isprint(av[1][0]));
-}
-*/

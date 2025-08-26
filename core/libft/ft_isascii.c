@@ -6,7 +6,7 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 20:55:40 by melshata          #+#    #+#             */
-/*   Updated: 2025/08/14 19:32:40 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:38:57 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,3 @@ int	ft_isascii(int c)
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-int main(int ac, char** av)
-{
-	printf("%d",ft_isascii(av[1][0]));
-}
-*/

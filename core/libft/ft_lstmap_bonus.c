@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 12:37:07 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/26 22:26:33 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/25 20:04:52 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/26 21:34:40 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	size_t	i;
+	t_list	*l2;
+	t_list	*p2;
+	t_list	*p;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (!lst || !f || !del)
+		return (NULL);
+	l2 = ft_lstnew(f(lst->content));
+	if (!l2)
+		return (NULL);
+	p = lst->next;
+	while (p)
+	{
+		p2 = ft_lstlast(l2);
+		p2->next = ft_lstnew(f(p->content));
+		if (!p2->next)
+		{
+			ft_lstclear(&l2, del);
+			return (l2);
+		}
+		p = p->next;
+	}
+	return (l2);
 }

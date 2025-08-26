@@ -6,11 +6,30 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:26:57 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 21:19:28 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:56:30 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static size_t	count_word(char const *s, char c)
+{
+	size_t	cw;
+	size_t	i;
+
+	cw = 0;
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] == c && s[i])
+			i++;
+		if (s[i])
+			cw++;
+		while (s[i] != c && s[i])
+			i++;
+	}
+	return (cw);
+}
 
 static void	spfree(char **nn, int i)
 {
@@ -58,10 +77,10 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	nn = malloc (sizeof(char *) * (ft_count_word(s, c) + 1));
+	nn = malloc (sizeof(char *) * (count_word(s, c) + 1));
 	if (!nn)
 		return (NULL);
-	nn[ft_count_word (s, c)] = NULL;
+	nn[count_word (s, c)] = NULL;
 	split_iter(s, c, nn);
 	return (nn);
 }

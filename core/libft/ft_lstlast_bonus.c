@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 12:37:07 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/26 22:26:33 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/25 15:09:25 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/25 15:30:12 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t	i;
+	t_list	*p;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (!lst)
+		return (NULL);
+	p = lst;
+	while (p->next != NULL)
+		p = p->next;
+	return (p);
 }

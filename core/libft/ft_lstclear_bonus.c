@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_word.c                                    :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 09:20:38 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 16:34:13 by melshata         ###   ########.fr       */
+/*   Created: 2025/08/25 16:49:36 by melshata          #+#    #+#             */
+/*   Updated: 2025/08/26 21:33:22 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_count_word(char const *s, char c)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	size_t	cw;
-	size_t	i;
+	t_list	*p	;
 
-	cw = 0;
-	i = 0;
-	while (s[i])
+	if (!lst || !*lst || !del)
+		return ;
+	while (*lst)
 	{
-		while (s[i] == c && s[i])
-			i++;
-		if (s[i])
-			cw++;
-		while (s[i] != c && s[i])
-			i++;
+		p = (*lst)->next;
+		ft_lstdelone (*lst, del);
+		*lst = p;
 	}
-	return (cw);
+	*lst = NULL;
 }

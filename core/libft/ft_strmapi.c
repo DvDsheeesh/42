@@ -6,7 +6,7 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:16:39 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:49:52 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:59:54 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	unsigned int	i;
 	char			*cc;
 
+	if (!s || !f)
+		return (NULL);
 	cc = ft_strdup(s);
 	if (!cc)
 		return (NULL);

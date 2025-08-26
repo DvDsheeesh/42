@@ -6,7 +6,7 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 18:40:15 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/23 13:50:10 by melshata         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:51:55 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
+	if (!s)
+		return ;
 	ft_putstr_fd (s, fd);
 	write (fd, "\n", 1);
 }
