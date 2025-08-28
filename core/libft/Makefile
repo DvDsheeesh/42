@@ -77,12 +77,4 @@ bonus : $(OBJ) $(OBJbonus)
 
 re: fclean all
 
-norm: $(CFILES)
-	norminette $(CFILES) libft.h
-
-testt: bonus fclean
-
-testm:$(OBJ) $(OBJbonus)
-	cc $(OBJ) $(OBJbonus) $(CFLAGS)
-
 .PHONY: all clean fclean re bonus

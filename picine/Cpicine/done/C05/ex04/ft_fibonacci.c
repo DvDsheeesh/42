@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fibonacci.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: melshata <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 06:21:04 by melshata          #+#    #+#             */
+/*   Updated: 2025/01/20 18:36:08 by melshata         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+
+int	ft_fibonacci(int index)
+{
+	if (index == 0)
+		return (0);
+	else if (index == 1)
+		return (1);
+	else if (index < 0)
+		return (-1);
+	else
+		return (ft_fibonacci(index - 1) + ft_fibonacci(index - 2));
+}
+/*
+int	main(void)
+{
+	printf("%d", ft_fibonacci(6));
+	return (0);
+}*/
