@@ -6,7 +6,7 @@
 #    By: melshata <melshata@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/14 18:51:27 by melshata          #+#    #+#              #
-#    Updated: 2025/08/26 18:45:47 by melshata         ###   ########.fr        #
+#    Updated: 2025/08/28 17:45:27 by melshata         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,10 @@ CFLAGS = -Werror -Wall -Wextra
 OBJ = $(CFILES:.c=.o)
 OBJbonus = $(CBONUS:.c=.o)
 
+# ifeq ($(MAKECMDGOALS), bonus)
+# 	OBJ = $(CFILES:.c=.o) $(CBONUS:.c=.o)
+# endif
+
 all: $(NAME)
 	
 $(NAME):$(OBJ)
@@ -72,9 +76,18 @@ fclean:
 clean:
 	rm -f $(OBJ) $(OBJbonus)
 
-bonus : $(OBJ) $(OBJbonus)
+# bonus : all
+bonus: $(OBJ) $(OBJbonus)
 	ar rcs $(NAME) $(OBJ) $(OBJbonus)
 
 re: fclean all
 
 .PHONY: all clean fclean re bonus
+
+norm: $(CFILES)
+	norminette $(CFILES) libft.h
+
+testt: bonus fclean
+
+testm:$(OBJ) $(OBJbonus)
+	cc $(OBJ) $(OBJbonus) $(CFLAGS)
