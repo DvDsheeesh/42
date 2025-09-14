@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:42:15 by mohammad          #+#    #+#             */
-/*   Updated: 2025/09/11 15:13:34 by melshata         ###   ########.fr       */
+/*   Updated: 2025/09/12 22:54:47 by mohammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,23 @@ int	main()
 	imp = malloc (BUFFER_SIZE + 1);
 	if (!imp)
 		return (0);
-	printf("%ld", read (fd, imp, BUFFER_SIZE));
-	printf("%s", imp);
-	printf("%ld", read (fd, imp, BUFFER_SIZE));
-	printf("%s", imp);
-	printf("%ld", read (fd, imp, BUFFER_SIZE));
-	printf("%s", imp);
-	printf("%ld", read (fd, imp, BUFFER_SIZE));
-	printf("%s", imp);
-	printf("%ld", read (fd, imp, BUFFER_SIZE));
-	printf("%s", imp);
+	imp[BUFFER_SIZE] = '\0';
+	// printf("%ld", read (fd, imp, BUFFER_SIZE));
+	// printf("%s\n", imp);
+	// printf("%ld", read (fd, imp, BUFFER_SIZE));
+	// printf("%s", imp);
+	// printf("%ld", read (fd, imp, BUFFER_SIZE));
+	// printf("%s", imp);
+	// printf("%ld", read (fd, imp, BUFFER_SIZE));
+	// printf("%s", imp);
+	// printf("%ld", read (fd, imp, BUFFER_SIZE));
+	// printf("%s", imp);
+	imp = get_next_line(fd);
+	write (1, imp, BUFFER_SIZE);
+	imp = get_next_line(fd);
+	write (1, imp, BUFFER_SIZE);
 	// imp = get_next_line(fd);
-	// write (1, imp, 10);
-	// imp = get_next_line(fd);
-	// write (1, imp, 10);
-	// imp = get_next_line(fd);
-	// write (1, imp, 10);
+	// write (1, imp, BUFFER_SIZE);
+	close (fd);
 }
 // write (1, "\nhi im sheesh", 10);

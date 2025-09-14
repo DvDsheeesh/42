@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 17:32:23 by mohammad          #+#    #+#             */
-/*   Updated: 2025/09/11 15:10:12 by melshata         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:35:10 by mohammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	*gnl_strchr(const char *s)
 	while (s[i] != '\n' && s[i])
 		i++;
 	if (s[i] == '\n')
-		i++;
-	return ((char *)s + i);
+		return ((char *)s + i + 1);
+	else
+		return (NULL);
 }
 
 char	*gnl_substr(char const *s, unsigned int start, size_t len)
@@ -42,26 +43,4 @@ char	*gnl_substr(char const *s, unsigned int start, size_t len)
 	}
 	sus[i] = '\0';
 	return (sus);
-}
-
-char	*gnl_strlcat(char *s1, char *s2, size_t bs)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (i < bs)
-	{
-		if (s1[i] == '\n' || s1[i] == '\0')
-			return (ft_substr(s1, 0, i + 1));
-		i++;
-	}
-	while (s2[j] != '\n' && s2[j] && i == bs && j < bs)
-	{
-		s1[i + j] = s2[j];
-		j++;
-	}
-	s1[i + j] = s2[j];
-	return (s1);
 }
