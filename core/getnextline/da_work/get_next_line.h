@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 17:32:15 by mohammad          #+#    #+#             */
-/*   Updated: 2025/09/12 22:56:15 by mohammad         ###   ########.fr       */
+/*   Created: 2025/09/17 15:32:03 by melshata          #+#    #+#             */
+/*   Updated: 2025/09/23 12:40:47 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 50
+# endif
 
-# include <unistd.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 
-char	*gnl_strchr(const char *s);
-char	*gnl_substr(char const *s, unsigned int start, size_t len);
-size_t	gnl_strcat(char *s1, int fd);
+ssize_t	ll(char *s);
+void	ffree(char **s1, char **s2, char **s3);
+void	*nfree(char **s1, char **s2, char **s3);
+char	*schr(char *s, char c);
+char	*my_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
 
 #endif
