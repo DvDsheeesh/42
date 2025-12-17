@@ -36,13 +36,7 @@ int	main(void)
 	char	*name;
 	int		fd;
 
-	fd = open("txt", O_RDONLY);
-	while (cc = get_next_line(fd))
-	{
-		printf("%d: %s\n", ++i, cc);
-		free(cc);
-	}
-	/*i = 0;
+	i = 0;
 	name = "txt";
 	fd = open(name, O_RDONLY);
 	cc = get_next_line(fd);
@@ -70,5 +64,5 @@ int	main(void)
 	free(cc);
 	cc = get_next_line(fd);
 	printf("%d: %s\n", ++i, cc);
-	free(cc);*/
+	free(cc);
 }
