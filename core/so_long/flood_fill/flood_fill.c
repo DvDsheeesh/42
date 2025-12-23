@@ -43,12 +43,34 @@ char** make_area(char** zone, t_point size)
 	return new;
 }
 
-char	**mapcpy(char **map)
+void	cpy_iter(char **map, char **map2, int lines, int len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < lines)
+	{
+		map2[i] = malloc(len + 1);
+		map2[i][len] = '\0';
+		j = 0;
+		//printf("\n%d, %d\n", i, j);
+		while (j < len)
+		{
+			printf("\n%d, %d\n", i, j);
+			map2[i][j] = map[i][j];
+			j++;
+		}
+		i++;
+	}
+	printf("\n%d, %d\n", i, j);
+}
+
+char	**map_cpy(char **map)
 {
 	char	**map2;
 	int		lines;
 	int		len;
-	int		i;
 
 	lines = 0;
 	len = 0;
@@ -59,30 +81,26 @@ char	**mapcpy(char **map)
 		while (map[0][len])
 			len++;
 	}
-	map2 = malloc(sizeof(char **) * (lines + 1));
+	printf("\n%d, %d\n", lines, len);///////////////////////
+	map2 = malloc(sizeof(char *) * (lines + 1));
 	map2[lines] = NULL;
-	while (lines)
-	{
-		map2[lines - 1] = malloc(len + 1);
-		map2[lines - 1][len] = '\0';
-		i = 0;
-		while (i < len)
-		{
-			///////////////////////////////////////////////////////
-			i++;
-		}
-	}
+	cpy_iter(map, map2, lines, len);
+	for (int i = 0; i < lines; ++i)
+		printf("%s\n", map2[i]);
+	return (map);
 }
 
 int main(void)
 {
-	t_point size = {8, 5};
+	t_point size = {8, 6};
+	char	**temp;
 	char *zone[] = {
 		"11111111",
 		"10C01C01",
 		"10010C01",
 		"1011EP01",
 		"11100001",
+		"11111111",
 	};
 
 	char**  area = make_area(zone, size);
@@ -92,7 +110,9 @@ int main(void)
 
 	t_point begin = {5, 3};
 	//mapcpy
-	
+	temp = map_cpy(area);
+	for (int i = 0; i < size.y; ++i)
+		printf("%s\n", temp[i]);
 	printf("%d\n", flood_fill(area, size, begin));
 	for (int i = 0; i < size.y; ++i)
 		printf("%s\n", area[i]);
