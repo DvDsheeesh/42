@@ -8,67 +8,23 @@
 
 // char	*get_next_line(int fd);
 // char	*my_strjoin(char *s1, char *s2);
-void	*nfree(char **s1, char **s2, char **s3);
-ssize_t	ll(char *s);
 
-/*char	*update_text(char *line)
+// void	*nfree(char **s1, char **s2, char **s3);
+// ssize_t	ll(char *s);
+
+void	freemap(char **map)
 {
-	int		l;
-	char	*tmp;
+	int	i;
 
-	if (!line)
-		return (NULL);
-	while (line[l] && line[l] != '\n')
-		l++;
-	tmp = malloc (l + 1);
-	l = 0;
-	while (line[l++])
-		if (line[l - 1] != '\n')
-			tmp[l - 1] = line[l - 1];
-	tmp[l] = '\0';
-	return (tmp);
+	i = 0;
+	while(map && map[i])
+	{
+		printf("%s\n", map[i]);//////////////////
+		free(map[i++]);
+	}
+	printf("%d\n", i);///////////////
+	free(map);
 }
-
-char	**read_text(char **text, int fd)
-{
-	char	*line;
-	char	*str;
-	char	*tmp;
-	
-	line = get_next_line(fd);  // malloc
-	str = my_strjoin(NULL, NULL);  // malloc
-	while (line)
-	{
-		tmp = my_strjoin(str, line);  // malloc
-		free(str);
-		str = tmp;
-		printf("%s", str);//////////////
-		free(line);
-		line = get_next_line(fd);
-	}
-	nfree(&line, &str, NULL);
-	return (text);
-	while (line && line[0] == '\n')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	while (line && line[0] != '\n')
-	{
-		//extend_text
-		text = my_strjoin();
-		printf("%s", line);///////
-		free(line);
-		line = get_next_line(fd);
-	}
-	while (line && line[1] == '\0')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	if (line)
-		nfree(line, NULL, NULL);
-}*/
 
 char	*extend_str(char *s1, char *s2)
 {
@@ -98,7 +54,7 @@ char	*extend_str(char *s1, char *s2)
 	return (ss);
 }
 
-char	*read_file(char **text, int fd)
+char	*read_file(int fd)
 {
 	char	*line;
 	char	*str;
@@ -114,11 +70,6 @@ char	*read_file(char **text, int fd)
 	nfree(&line, NULL, NULL);
 	return (str);
 }
-
-// char	**mapcpy(char **map)
-// {
-
-// }
 
 int	isvalid(char *c, int *Ccount, int *Pcount, int *Ecount)
 {
@@ -154,32 +105,40 @@ int		phasing(char **text)
 		i++;
 	while((*text)[i] && (*text)[i] == '\n')
 		i++;
-	printf("C=%d\nP=%d\nE=%d\n", Ccount, Pcount, Ecount);///////////
-	if (text[i] || Pcount != 1 || Ecount != 1 || Ccount <= 0)
-		return (0);
-	return (1);
+	printf("C=%d\nP=%d\nE=%d\ntext[i]=%d\n", Ccount, Pcount, Ecount, (*text)[i]);///////////
+	if ((*text)[i])
+		printf("invalid map shape");
+	else if (Pcount != 1 || Ecount != 1 || Ccount < 1)
+		printf("wrong number of P, E, C\n");
+	else
+		return (1);
+	return (0);
 }
 
 char	**read_and_check_nums(char *path)
 {
 	int		fd;
-	int		Ccount;
+	// int		Ccount;
 	char	*text;
 	char	**map;
 
-	Ccount = 0;
+	// Ccount = 0;
 	text = NULL;
 	fd = open(path, O_RDONLY);  // check (not malloc)
-
-
-	text = read_file(&text, fd);  // malloc
-
-
-	Ccount = phasing(&text);  // check (not malloc)
+	if (fd < 0)
+		return (NULL);
+	text = read_file(fd);  // malloc
+	if (!text)
+		return (NULL);
+	// Ccount = phasing(&text);  // check (not malloc)
 	map = ft_split(text, '\n');  // malloc
-	// check for both past lines
+	// printf("im here %d\n", Ccount);
+	if (phasing(&text) == 0 || !map)
+	{
+		free(text);
+		return (NULL);
+	}
 	free(text);
-
 	return (map);
 }
 
@@ -204,11 +163,132 @@ int	map_walls_check(char **map)
 	return (1);
 }
 
+int		collect_num(char **map)
+{
+	int C_num;
+	int	x;
+	int	y;
+
+	C_num = 0;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'C')
+				C_num++;
+			x++;
+		}
+		y++;
+	}
+	return (C_num);
+}
+
+/*int		get_xymap(char **map, int xyflag)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (map[y])
+		y++;
+	x = 0;
+	while (map[0][x])
+		x++;
+	if (xyflag)
+		return (y);
+	return(x);
+}*/
+
+int		reach(char **map, int xp, int yp, char to_count, int start)
+{
+	int counter;
+
+	counter = 0;
+	printf("(%d, %d), %c\n", xp, yp, map[yp][xp]);/////////
+	if (map[yp][xp] == to_count)
+		counter++;
+	map[yp][xp] = 'F';
+	if (map[yp][xp + 1] != '1' && map[yp][xp + 1] != 'F')
+		counter += reach(map, xp + 1, yp, to_count, 0);
+	if (map[yp][xp - 1] != '1' && map[yp][xp - 1] != 'F')
+		counter += reach(map, xp - 1, yp, to_count, 0);
+	if (map[yp + 1][xp] != '1' && map[yp + 1][xp] != 'F')
+		counter += reach(map, xp, yp + 1, to_count, 0);
+	if (map[yp - 1][xp] != '1' && map[yp - 1][xp] != 'F')
+		counter += reach(map, xp, yp - 1, to_count, 0);
+	printf("counter=%d\n", counter);/////////
+	if (start)
+		freemap(map);
+	return (counter);
+}
+
+int		xy_p(char **map, int xyflag)
+{
+	int	x;
+	int	y;
+	int	found;
+
+	found = 0;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'P')
+			{
+				found = 1;
+				break;
+			}
+			x++;
+		}
+		if (found)
+			break;
+		y++;
+	}
+	if (xyflag)
+		return (y);
+	return(x);
+}
+
+char	**cpymap(char **map)
+{
+	int		i;
+	int		j;
+	char	**cmap;
+
+	i = 0;
+	while (map[i])
+		i++;
+	j = 0;
+	while (map[0][j])
+		j++;
+	cmap = malloc(sizeof(char *) * (i + 1));
+	cmap[i] = NULL;
+	i = 0;
+	while (map[i])
+	{
+		cmap[i] = malloc(j + 1);
+		j = 0;
+		while (map[i][j])
+		{
+			cmap[i][j] = map[i][j];
+			j++;
+		}
+		cmap[i][j] = '\0';
+		i++;
+	}
+	return (cmap);
+}
+
 int		check_rect(char **map)
 {
 	int	i;
 	int	l;
 	int	old_l;
+	int	C_num;
 
 	i = 0;
 	old_l = 0;
@@ -219,26 +299,63 @@ int		check_rect(char **map)
 			l++;
 		if (old_l != 0 && old_l != l)
 		{
-			printf("not a rectangle map");
+			printf("not a rectangle map\n");
 			return (0);
 		}
 		old_l = l;
 		i++;
 	}
+	/*C_num = collect_num(map);
+	if (reach(map, l, i, xy_p(map, 0), xy_p(map, 1)) == C_num)
+		return (1);
+	return (0);*/
+	return (1);
+}
+
+int		check_extention(char *path, char const *ber)
+{
+	int	i;
+	int	num_match;
+
+	i = 0;
+	while (path[i])
+		i++;
+	i -= 4;
+	num_match = 0;
+	while (path[i])
+	{
+		if (path[i] == ber[num_match])
+			num_match++;
+		i++;
+	}
+	if (num_match != 4)
+		return (0);
 	return (1);
 }
 
 char	**map_manager(char *path)
 {
 	char	**map;
+	int		C_num;
 
 	map = read_and_check_nums(path);  // malloc
-	printf("check walls : %dwwww\n", map_walls_check(map));///////
-
-	printf("check rectangle : %d\n", check_rect(map));///////
-
-
-	return (map);
+	if (!map)
+	{
+		printf("bad\n");
+		return (NULL);
+	}
+	C_num = collect_num(map);
+	printf("check walls : %d\n", map_walls_check(map));
+	//printf("check rect : %d\n", check_rect(map));
+	if (map_walls_check(map) == 0 || check_rect(map) == 0)
+		printf("check walls or check rectangle wrong\n");
+	else if (reach(cpymap(map), xy_p(map, 0), xy_p(map, 1), 'E', 1) != 1 ||
+				reach(cpymap(map), xy_p(map, 0), xy_p(map, 1), 'C', 1) != C_num)
+		printf("couldn't reach all C and E\n");
+	else
+		return (map);
+	freemap(map);
+	return (NULL);
 }
 
 int main(int ac, char **av)
@@ -247,20 +364,16 @@ int main(int ac, char **av)
 	// char	*path = "maplib/map.ber";//////////
 	char	**map;
 
-	if (ac != 2)
+	if (ac != 2 || check_extention(av[1], ".ber") == 0)
 	{
+		printf("bad extention\n");
 		write (1, "must take path as argument\n", 27);
 		return (0);
 	}
-	map = read_and_check_nums(av[1]);
-	printf("check walls : %d\n", map_walls_check(map));///////
-	i = 0;////////////
-	while(map[i])////////////
-	{
-		printf("%s\n", map[i]);//////////
-		free(map[i++]);//////////
-	}
-	printf("%d\n", i);///////////
-	free(map);///////////
+	map = map_manager(av[1]);
+	// map = read_and_check_nums(av[1]);
+	// printf("check walls : %d\n", map_walls_check(map));///////
+	if (map)
+		freemap(map);
     return (0);
 }

@@ -2,7 +2,7 @@
 
 NAME    = so_long
 CC      = cc
-CFLAGS  = -Werror #-Wall -Wextra
+CFLAGS  = -Werror -g #-Wall -Wextra
 
 # Path to your libft directory
 LIBFT_DIR = ./libft
