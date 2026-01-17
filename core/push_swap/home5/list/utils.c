@@ -6,11 +6,24 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:26:34 by melshata          #+#    #+#             */
-/*   Updated: 2026/01/17 09:31:17 by melshata         ###   ########.fr       */
+/*   Updated: 2026/01/17 18:33:17 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
+int	list_len(t_list *lst)
+{
+	int	len;
+
+	len = 0;
+	while (lst)
+	{
+		len++;
+		lst = lst->next;
+	}
+	return (len);
+}
 
 t_list	*list_last(t_list *lst)
 {
@@ -54,7 +67,7 @@ int	list_is_sorted(t_list *a)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (a)
 	{
 		if (a->sorted_index != i)
