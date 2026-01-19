@@ -40,7 +40,7 @@ static char	*extend_str(char *s1, char c)
 	return (ss);
 }
 
-void	singalHandler(int sig)
+void	singal_handler(int sig)
 {
 	static int	bitcount = 0;
 	static char chrr = 0;
@@ -67,8 +67,8 @@ void	singalHandler(int sig)
 }
   
 int main()  {
-	signal(SIGUSR1, singalHandler);
-	signal(SIGUSR2, singalHandler);
+	signal(SIGUSR1, singal_handler);
+	signal(SIGUSR2, singal_handler);
 	// while (1){
 	// 	printf("Hello World!\n");
 	// }
