@@ -6,35 +6,108 @@
 /*   By: melshata <melshata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 13:27:55 by melshata          #+#    #+#             */
-/*   Updated: 2026/06/24 14:55:04 by melshata         ###   ########.fr       */
+/*   Updated: 2026/06/24 23:18:12 by melshata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
 
+/////////////////////////////////////////////////////
 
-typedef struct s_config
+static int	my_int_length(long n)
 {
-	int					number_of_philosophers;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					must_eat_count;
-}						t_config;
+	int	i;
+
+	if (n == 0)
+		return (1);
+	i = 0;
+	if (n < 0)
+	{
+		n = -n;
+		i++;
+	}
+	while (n)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*s;
+	int		i;
+	long	num;
+
+	num = n;
+	s = (char *)malloc (my_int_length(num) + 1);
+	if (!s)
+		return (NULL);
+	s[my_int_length(num)] = '\0';
+	i = 0;
+	if (num < 0)
+	{
+		s[0] = '-';
+		num = -num;
+		i = 1;
+	}
+	if (num == 0)
+		s[0] = '0';
+	while (num)
+	{
+		s[my_int_length(num) - 1 + i] = (char)((num % 10) + 48);
+		num /= 10;
+	}
+	return (s);
+}
+
+void	print_configs(t_config config)
+{
+	ft_putstr_fd("number_of_philosophers: ", 1);
+	ft_putstr_fd(ft_itoa(config.number_of_philosophers), 1);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("time_to_die: ", 1);
+	ft_putstr_fd(ft_itoa(config.time_to_die), 1);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("time_to_eat: ", 1);
+	ft_putstr_fd(ft_itoa(config.time_to_eat), 1);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("time_to_sleep: ", 1);
+	ft_putstr_fd(ft_itoa(config.time_to_sleep), 1);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("must_eat_count: ", 1);
+	ft_putstr_fd(ft_itoa(config.must_eat_count), 1);
+	ft_putstr_fd("\n", 1);
+}
+
+/////////////////////////////////////////////////////
+
+void	*manager_routine(void *arg)
+{
+	while (!is_dead())
+	{
+
+	}
+}
+
+int	init_philos()
+{
+	
+}
 
 int	main(int ac, char **av)
 {
-	int	num_of_meals;
+	t_config	config;
+	pthread_t	manager;
 
-	if (ac < 5 || ac > 6)
+	config = parse_args(ac, av);
+	data_init();
+	// print_configs(config);
+	if (pthread_create(&manager, NULL, manager_routine, NULL) != 0)
+		return (1);
+	if (!init_philos())
 	{
-		ft_putstr("invalid number of arguments!\n");
-		exit(1);
-	}
-	else if (ac == 5)
-		num_of_meals = -1;
-	else if (ac == 6)
-	{
-		if 
-		num_of_meals = atoi()
+
 	}
 }
